@@ -10,7 +10,7 @@ Usages
 you have to provide `values` and an `onChange` handler
 to enable the edition.
 ```jsx
-<BezierEditor
+<GlslUniformsEditor
   types={{ position: "vec2", power: "float" }}
   values={this.state.values}
   onChange={values => this.setState({ values })} />
@@ -19,7 +19,7 @@ to enable the edition.
 `glsl-uniforms-editor` allows to be **Uncontrolled**:
 just define a `defaultValues`:
 ```jsx
-<BezierEditor
+<GlslUniformsEditor
   types={{ position: "vec2", power: "float" }}
   defaultValues={{ position: [1, 2], power: 0.4 }}
   onChange={console.log.bind(console)} />
