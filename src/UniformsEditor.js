@@ -54,15 +54,7 @@ const defaultProps = {
     />;
   },
   renderNoUniforms () {
-    return <div>
-      <p>
-        No uniform parameters are currently used by this transition.
-      </p>
-      <p>
-        You could define a few custom uniforms for allowing
-        a better Transition customization?
-      </p>
-    </div>;
+    return <div>no uniforms.</div>;
   }
 };
 
