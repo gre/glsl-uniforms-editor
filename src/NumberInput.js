@@ -1,5 +1,4 @@
 var React = require("react");
-var _ = require("lodash");
 
 // React have issues with input type=number – some workaround here
 
@@ -9,13 +8,12 @@ function isValidNumber (text) {
 
 var NumberInput = React.createClass({
   propTypes: {
-    onChange: React.PropTypes.func,
+    onChange: React.PropTypes.func.isRequired,
     step: React.PropTypes.number,
     value: React.PropTypes.number
   },
   getDefaultProps: function () {
     return {
-      onChange: _.noop,
       step: 1
     };
   },
@@ -42,11 +40,11 @@ var NumberInput = React.createClass({
   },
 
   render: function () {
-    var props = _.clone(this.props);
+    var props = {};
     if (!this.props.type) props.type = "number";
     props.value = ""+this.state.value; // The concatenation is important
     props.onChange = this.onChange;
-    return React.DOM.input(props);
+    return <input {...this.props} {...props} />;
   }
 });
 

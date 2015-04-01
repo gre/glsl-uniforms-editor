@@ -1,8 +1,14 @@
 import React from "react";
 import {primitiveForType, arityForType, componentLinesForType, labelsForType} from "./core";
 import UniformComponentInput from "./UniformComponentInput";
+import objectAssign from "object-assign";
 
-var _ = require("lodash");
+function range (min, max) {
+  var t = [];
+  for (var i=min; i<max; ++i)
+    t.push(i);
+  return t;
+}
 
 export default class UniformEditor extends React.Component {
 
@@ -91,7 +97,7 @@ export default class UniformEditor extends React.Component {
        (focus.length ? labels[focus[0]] : labels) :
        null);
 
-    const highlightHover = labels && (hover ?
+    const highlightHover = labels && !highlight && (hover ?
       (hover.length ? labels[hover[0]] : labels) :
       null);
 
@@ -103,7 +109,7 @@ export default class UniformEditor extends React.Component {
       color: colorHighlightHover
     };
 
-    const labelStyle = _.extend({
+    const labelStyle = objectAssign({
       display: "inline-block",
       width: labelsWidth+"px",
       color: colorLabel,
@@ -118,7 +124,7 @@ export default class UniformEditor extends React.Component {
       paddingBottom: uniformInputMargin+"px"
     };
 
-    const inputsLines = _.map(_.range(0, componentLines), function (l) {
+    const inputsLines = range(0, componentLines).map(function (l) {
       const lineStyle = {
         position: "relative"
       };
@@ -128,7 +134,7 @@ export default class UniformEditor extends React.Component {
         width: Math.floor(inputsWidth / inputsPerLine) + "px"
       };
       function makeInputStyle (focused, hovered) {
-        return _.extend({}, inputStyle, inputStyleBase, primitiveType === "bool" ? {} : {
+        return objectAssign({}, inputStyle, inputStyleBase, primitiveType === "bool" ? {} : {
           borderStyle: "solid",
           borderColor: focused ? colorHighlight : (hovered ? colorHighlightHover : "#eee"),
           outline: focused ? colorHighlight+" 1px solid" : "none",
@@ -153,7 +159,7 @@ export default class UniformEditor extends React.Component {
           />;
         }
         else {
-          return _.map(_.range(0, inputsPerLine), function (i) {
+          return range(0, inputsPerLine).map(function (i) {
             var index = l * inputsPerLine + i;
             var iid = id+"_"+index;
             return <label key={"label-"+iid}>

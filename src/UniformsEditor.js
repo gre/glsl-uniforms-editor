@@ -1,8 +1,7 @@
 import React from "react";
 import {defaultValueForType} from "./core";
 import UniformEditor from "./UniformEditor";
-
-var _ = require("lodash");
+import objectAssign from "object-assign";
 
 const PropTypes = React.PropTypes;
 
@@ -61,9 +60,11 @@ const defaultProps = {
 export default class UniformsEditor extends React.Component {
 
   onUniformChange (u, value, index) {
-    const uniformValues = _.clone(this.props.values);
-    const current = _.clone(uniformValues[u]) || defaultValueForType(this.props.types[u]);
-    if (typeof current !== "string" && _.isArray(current)) {
+    const uniformValues = objectAssign({}, this.props.values);
+    if (index !== null) {
+      const current = u in uniformValues ?
+        uniformValues[u].slice(0) :
+        defaultValueForType(this.props.types[u]);
       current[index] = value;
       uniformValues[u] = current;
     }
@@ -88,7 +89,7 @@ export default class UniformsEditor extends React.Component {
       style
     } = this.props;
 
-    const inputStyleWithDefaults = _.extend({}, defaultProps.inputStyle, inputStyle);
+    const inputStyleWithDefaults = objectAssign({}, defaultProps.inputStyle, inputStyle);
 
     const uniforms = Object.keys(types).map(function (u) {
       var type = types[u];

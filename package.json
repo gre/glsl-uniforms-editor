@@ -30,7 +30,7 @@
     "babelify": "^5.0.4"
   },
   "dependencies": {
-    "lodash": "^3.6.0",
+    "object-assign": "^2.0.0",
     "uncontrollable": "^1.1.3"
   }
 }

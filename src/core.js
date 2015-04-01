@@ -1,18 +1,20 @@
-var _ = require("lodash");
+function contains (t, v) {
+  return t.indexOf(v) !== -1;
+}
 
 const primitiveTypes = ["float", "int", "bool", "sampler2D"];
 
 export function primitiveForType (t) {
-  if (_.contains(primitiveTypes, t)) return t;
+  if (contains(primitiveTypes, t)) return t;
   if (t[0] === "b") return "bool";
   if (t[0] === "i") return "int";
   return "float";
 }
 
 export function arityForType (t) {
-  if (_.contains(t, "vec2")) return 2;
-  if (_.contains(t, "vec3")) return 3;
-  if (_.contains(t, "vec4")) return 4;
+  if (contains(t, "vec2")) return 2;
+  if (contains(t, "vec3")) return 3;
+  if (contains(t, "vec4")) return 4;
   if (t === "mat2") return 4;
   if (t === "mat3") return 9;
   if (t === "mat4") return 16;
@@ -27,7 +29,7 @@ export function componentLinesForType (t) {
 }
 
 export function labelsForType (t, name) {
-  if (_.contains(t, "vec")) {
+  if (contains(t, "vec")) {
     var colorLike = (name||"").toLowerCase().indexOf("color") > -1 && (t[3]==="3" || t[3]==="4");
     return colorLike ? [".r",".g",".b",".a"] : [".x", ".y", ".z", ".w"];
   }
@@ -54,14 +56,14 @@ export function labelsForType (t, name) {
   }
 }
 
+const defValTypes = { "bool": false, "int": 0, "float": 0.0, "sampler2D": null };
 export function defaultValueForType (t) {
   var arity = arityForType(t);
   var primitive = primitiveForType(t);
-  var v = ({ "bool": false, "int": 0, "float": 0.0, "sampler2D": null })[primitive];
+  var v = defValTypes[primitive];
   if (arity === 1) return v;
   var arr = [];
-  for (var i=0; i<arity; ++i) {
+  for (var i=0; i<arity; ++i)
     arr.push(v);
-  }
   return arr;
 }
