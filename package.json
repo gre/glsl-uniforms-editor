@@ -1,6 +1,6 @@
 {
   "name": "glsl-uniforms-editor",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "React component with inputs to edit uniforms of a GLSL shader",
   "main": "src/index.js",
   "peerDependencies": {
@@ -26,8 +26,7 @@
     "url": "https://github.com/gre/glsl-uniforms-editor/issues"
   },
   "homepage": "https://github.com/gre/glsl-uniforms-editor",
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "dependencies": {
     "babelify": "^5.0.4",
     "object-assign": "^2.0.0",
