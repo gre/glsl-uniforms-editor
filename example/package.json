@@ -17,9 +17,9 @@
   "devDependencies": {
     "babel": "^4.7.16",
     "babelify": "^5.0.4",
-    "browserify": "^9.0.3",
-    "budo": "^2.0.1"
+    "browserify": "^9.0.8",
+    "budo": "^2.0.1",
+    "watchify": "^3.1.0"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }

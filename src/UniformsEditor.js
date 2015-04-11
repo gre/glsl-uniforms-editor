@@ -89,6 +89,8 @@ export default class UniformsEditor extends React.Component {
       style
     } = this.props;
 
+    const styles = objectAssign({ width: width+"px" }, style);
+
     const inputStyleWithDefaults = objectAssign({}, defaultProps.inputStyle, inputStyle);
 
     const uniforms = Object.keys(types).map(function (u) {
@@ -113,10 +115,10 @@ export default class UniformsEditor extends React.Component {
     }, this);
 
     if (uniforms.length) {
-      return <div style={style}>{uniforms}</div>;
+      return <div style={styles}>{uniforms}</div>;
     }
     else {
-      return <div style={style}>
+      return <div style={styles}>
         {this.props.renderNoUniforms()}
       </div>;
     }
