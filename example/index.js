@@ -1,11 +1,11 @@
 import React from "react/addons";
-import UniformsEditor from "..";
+import UniformsEditor from "glsl-uniforms-editor";
 import libPackage from "../package.json";
 
 window.Perf = React.addons.Perf;
 
 const linkStyle = {
-  color: "#49F",
+  color: "#f39",
   textDecoration: "none"
 };
 
@@ -81,13 +81,20 @@ class Example extends React.Component {
         values={values}
         onChange={this.onChange}
         width={400}
-        colorLabel="#000"
-        colorHighlight="#f39"
-        colorHighlightHover="#ccc"
-        inputStyle={{
-          background: "#555",
-          color: "#fff"
-        }}
+        labelStyle={(highlight, hover) => ({
+          color: highlight ? "#f39" : hover ? "#ccc" : "#000"
+        })}
+        inputStyle={(focus, hover, { primitiveType }) => primitiveType === "bool" ? {} : ({
+          color: "#579",
+          fontFamily: "monospace",
+          fontSize: "12px",
+          lineHeight: "16px",
+          padding: "0 5px",
+          margin: "0",
+          border: "1px solid "+(focus ? "#f39" : (hover ? "#ccc" : "#eee")),
+          outline: focus ? "#f39 1px solid" : "none",
+          boxShadow: focus ? "0px 0px 2px #f39" : "none"
+        })}
       />
 
       <hr />

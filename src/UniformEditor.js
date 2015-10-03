@@ -1,7 +1,6 @@
-import React from "react";
-import {primitiveForType, arityForType, componentLinesForType, labelsForType} from "./core";
-import UniformComponentInput from "./UniformComponentInput";
-import objectAssign from "object-assign";
+const React = require("react");
+const {primitiveForType, arityForType, componentLinesForType, labelsForType} = require("./core");
+const UniformComponentInput = require("./UniformComponentInput");
 
 function range (min, max) {
   var t = [];
@@ -10,7 +9,7 @@ function range (min, max) {
   return t;
 }
 
-export default class UniformEditor extends React.Component {
+class UniformEditor extends React.Component {
 
   constructor (props) {
     super(props);
@@ -63,10 +62,8 @@ export default class UniformEditor extends React.Component {
       id,
       width,
       labelsWidth,
-      colorLabel,
-      colorHighlight,
-      colorHighlightHover,
       inputStyle,
+      labelStyle,
       uniformInputMargin,
       renderSampler2DInput
     } = this.props;
@@ -101,22 +98,20 @@ export default class UniformEditor extends React.Component {
       (hover.length ? labels[hover[0]] : labels) :
       null);
 
-    const labelHighlightStyle = {
-      color: colorHighlight
-    };
+    const styleParams = { primitiveType, arity, componentLines, type, name };
 
-    const labelHighlightHoverStyle = {
-      color: colorHighlightHover
-    };
+    const labelHighlightStyle = labelStyle(true, false, styleParams);
 
-    const labelStyle = objectAssign({
+    const labelHighlightHoverStyle = labelStyle(true, true, styleParams);
+
+    const lblStyle = {
       display: "inline-block",
       width: labelsWidth+"px",
-      color: colorLabel,
-      verticalAlign: "top"
-    },
-    hover && !labels ? labelHighlightHoverStyle : {},
-    focus && !labels ? labelHighlightStyle : {});
+      verticalAlign: "top",
+      ...labelStyle(false, false, styleParams),
+      ...(hover && !labels ? labelHighlightHoverStyle : {}),
+      ...(focus && !labels ? labelHighlightStyle : {})
+    };
 
     const style = {
       position: "relative",
@@ -133,20 +128,12 @@ export default class UniformEditor extends React.Component {
         boxSizing: "border-box",
         width: Math.floor(inputsWidth / inputsPerLine) + "px"
       };
-      function makeInputStyle (focused, hovered) {
-        return objectAssign({}, inputStyle, inputStyleBase, primitiveType === "bool" ? {} : {
-          borderStyle: "solid",
-          borderColor: focused ? colorHighlight : (hovered ? colorHighlightHover : "#eee"),
-          outline: focused ? colorHighlight+" 1px solid" : "none",
-          boxShadow: focused ? "0px 0px 2px "+colorHighlight : "none",
-          borderWidth: "1px"
-        });
-      }
+
       var inputs = (function(){
         if (inputsPerLine === 1) {
           var iid = id+"_"+l;
           return <UniformComponentInput
-            style={makeInputStyle(focus, hover)}
+            style={{ ...inputStyleBase, ...inputStyle(focus, hover, styleParams) }}
             key={iid}
             primitiveType={primitiveType}
             value={value}
@@ -164,7 +151,7 @@ export default class UniformEditor extends React.Component {
             var iid = id+"_"+index;
             return <label key={"label-"+iid}>
               <UniformComponentInput
-                style={makeInputStyle(focus && focus[0]===index, hover && hover[0]===index)}
+                style={{ ...inputStyleBase, ...inputStyle(focus && focus[0]===index, hover && hover[0]===index, styleParams) }}
                 key={iid}
                 primitiveType={primitiveType}
                 value={value && value[index]}
@@ -183,7 +170,7 @@ export default class UniformEditor extends React.Component {
     });
 
     return <div style={style}>
-      <label style={labelStyle}>{name}{
+      <label style={lblStyle}>{name}{
         !highlight && !highlightHover ? undefined :
         <span style={highlightHover ? labelHighlightHoverStyle : labelHighlightStyle}>
         {highlight || highlightHover}
@@ -193,3 +180,5 @@ export default class UniformEditor extends React.Component {
     </div>;
   }
 }
+
+module.exports = UniformEditor;

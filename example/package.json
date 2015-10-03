@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "budo index.js --live --outfile build.js",
+    "start": "budo index.js:build.js --live | garnish",
     "build": "browserify index.js | uglifyjs -c -m > build.js"
   },
   "browserify": {
@@ -15,11 +15,14 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "babel": "^4.7.16",
-    "babelify": "^5.0.4",
-    "browserify": "^9.0.8",
-    "budo": "^2.0.1",
+    "babelify": "^6.3.0",
+    "browserify": "^11.2.0",
+    "budo": "^5.1.1",
+    "garnish": "^3.2.1",
     "watchify": "^3.1.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "glsl-uniforms-editor": "file:..",
+    "react": "^0.13.3"
+  }
 }

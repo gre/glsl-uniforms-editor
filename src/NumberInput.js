@@ -3,7 +3,7 @@ var React = require("react");
 // React have issues with input type=number – some workaround here
 
 function isValidNumber (text) {
-  return text && !isNaN(text) && text[text.length-1]!=='.';
+  return text && !isNaN(text) && text[text.length-1]!==".";
 }
 
 var NumberInput = React.createClass({

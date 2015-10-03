@@ -1,6 +1,5 @@
-import React from "react";
-import NumberInput from "./NumberInput";
-import objectAssign from "object-assign";
+const React = require("react");
+const NumberInput = require("./NumberInput");
 
 const primitiveTypes = {
   "float": {
@@ -22,8 +21,7 @@ const primitiveTypes = {
   }
 };
 
-
-export default class UniformEditor extends React.Component {
+class UniformComponentInput extends React.Component {
 
   constructor (props) {
     super(props);
@@ -59,7 +57,7 @@ export default class UniformEditor extends React.Component {
         props.checked = value || primitive.checked;
       else
         props.value = value || primitive.value;
-      props = objectAssign({}, this.props, props);
+      props = { ...this.props, ...props };
       if (props.type === "number")
         return <NumberInput {...props} />;
       else
@@ -67,3 +65,5 @@ export default class UniformEditor extends React.Component {
     }
   }
 }
+
+module.exports = UniformComponentInput;
