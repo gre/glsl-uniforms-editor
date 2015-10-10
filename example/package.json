@@ -23,6 +23,6 @@
   },
   "dependencies": {
     "glsl-uniforms-editor": "file:..",
-    "react": "^0.13.3"
+    "react": "^0.14.0"
   }
 }
