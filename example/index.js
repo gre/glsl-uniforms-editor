@@ -1,8 +1,7 @@
-import React from "react/addons";
+import React from "react";
+import {render} from "react-dom";
 import UniformsEditor from "glsl-uniforms-editor";
 import libPackage from "../package.json";
-
-window.Perf = React.addons.Perf;
 
 const linkStyle = {
   color: "#f39",
@@ -110,4 +109,4 @@ document.body.style.padding = "0px 20px";
 document.body.style.color = "#333";
 document.body.style.background = "#fff";
 document.body.style.fontFamily = "sans-serif";
-React.render(<Example />, document.body);
+render(<Example />, document.body);
