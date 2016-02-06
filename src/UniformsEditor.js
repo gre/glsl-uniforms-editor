@@ -84,22 +84,20 @@ UniformsEditor.propTypes = {
 UniformsEditor.defaultProps = {
   width: 300,
   labelsWidth: 100,
-  /*
-  colorLabel: "#579",
-  colorHighlight: "#49F",
-  colorHighlightHover: "#9cf",
-  */
   values: {},
-  uniformInputMargin: 8,
+  uniformInputMargin: 6,
   labelStyle: (highlight, hover) => ({
-    color: highlight ? "#49f" : hover ? "#9cf" : "#579"
+    color: highlight ? "#49f" : hover ? "#9cf" : "#579",
+    fontSize: "12px",
+    lineHeight: "20px",
+    fontFamily: "Monaco, monospace"
   }),
   inputStyle: (focus, hover, { primitiveType }) => primitiveType === "bool" ? {} : ({
     color: "#579",
-    fontFamily: "monospace",
     fontSize: "12px",
+    fontFamily: "Monaco, monospace",
     lineHeight: "16px",
-    padding: "0 5px",
+    padding: "0 3px",
     margin: "0",
     border: "1px solid "+(focus ? "#49F" : (hover ? "#9cf" : "#eee")),
     outline: focus ? "#49F 1px solid" : "none",

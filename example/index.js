@@ -81,12 +81,15 @@ class Example extends React.Component {
         onChange={this.onChange}
         width={400}
         labelStyle={(highlight, hover) => ({
-          color: highlight ? "#f39" : hover ? "#ccc" : "#000"
+          color: highlight ? "#f39" : hover ? "#ccc" : "#000",
+          fontSize: "12px",
+          lineHeight: "20px",
+          fontFamily: "Monaco, monospace"
         })}
         inputStyle={(focus, hover, { primitiveType }) => primitiveType === "bool" ? {} : ({
-          color: "#579",
-          fontFamily: "monospace",
           fontSize: "12px",
+          fontFamily: "Monaco, monospace",
+          color: "#579",
           lineHeight: "16px",
           padding: "0 5px",
           margin: "0",

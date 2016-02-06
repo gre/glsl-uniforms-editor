@@ -87,7 +87,8 @@ class UniformEditor extends React.Component {
 
     const inputsStyle = {
       display: "inline-block",
-      width: inputsWidth+"px"
+      width: inputsWidth+"px",
+      position: "relative"
     };
 
     const highlight = labels && (focus ?
@@ -120,18 +121,20 @@ class UniformEditor extends React.Component {
     };
 
     const inputsLines = range(0, componentLines).map(function (l) {
-      const lineStyle = {
-        position: "relative"
-      };
+
       var inputsPerLine = arity / componentLines;
       const inputStyleBase = {
         boxSizing: "border-box",
-        width: Math.floor(inputsWidth / inputsPerLine) + "px"
+        width: Math.floor(inputsWidth / inputsPerLine + 1) + "px",
+        margin: "0"
       };
 
-      var inputs = (function(){
+      let isFocusOrHover = false;
+
+      const inputs = (function(){
         if (inputsPerLine === 1) {
           var iid = id+"_"+l;
+          isFocusOrHover = focus||hover;
           return <UniformComponentInput
             style={{ ...inputStyleBase, ...inputStyle(focus, hover, styleParams) }}
             key={iid}
@@ -149,9 +152,19 @@ class UniformEditor extends React.Component {
           return range(0, inputsPerLine).map(function (i) {
             var index = l * inputsPerLine + i;
             var iid = id+"_"+index;
-            return <label key={"label-"+iid}>
+            var isFocus = focus && focus[0]===index;
+            var isHover = hover && hover[0]===index;
+            if (isFocus || isHover) isFocusOrHover = true;
+            return <label key={"label-"+iid} style={{
+              position: "relative",
+              marginLeft: "-1px",
+              zIndex: isFocus || isHover ? 2 : 0
+            }}>
               <UniformComponentInput
-                style={{ ...inputStyleBase, ...inputStyle(focus && focus[0]===index, hover && hover[0]===index, styleParams) }}
+                style={{
+                  ...inputStyleBase,
+                  ...inputStyle(isFocus, isHover, styleParams)
+                }}
                 key={iid}
                 primitiveType={primitiveType}
                 value={value && value[index]}
@@ -166,6 +179,13 @@ class UniformEditor extends React.Component {
           });
         }
       }());
+
+      const lineStyle = {
+        position: "relative",
+        marginTop: l>0 ? "-2px" : "0px",
+        zIndex: isFocusOrHover ? 1 : 0
+      };
+
       return <div key={"input-line-"+l} style={lineStyle}>{inputs}</div>;
     });
 

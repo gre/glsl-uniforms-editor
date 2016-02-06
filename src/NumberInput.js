@@ -40,11 +40,13 @@ var NumberInput = React.createClass({
   },
 
   render: function () {
-    var props = {};
-    if (!this.props.type) props.type = "number";
-    props.value = ""+this.state.value; // The concatenation is important
-    props.onChange = this.onChange;
-    return <input {...this.props} {...props} />;
+    const props = {
+      ...this.props,
+      type: "string",
+      value: "" + this.state.value,
+      onChange: this.onChange
+    };
+    return <input {...props} />;
   }
 });
 
