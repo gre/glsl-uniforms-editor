@@ -114,7 +114,6 @@ UniformsEditor.defaultProps = {
     return <input
       {...props}
       type="url"
-      value={props.value}
       onChange={onChange}
     />;
   },

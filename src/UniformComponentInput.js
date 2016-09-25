@@ -40,10 +40,11 @@ class UniformComponentInput extends React.Component {
     const {
       primitiveType,
       value,
-      renderSampler2DInput
+      renderSampler2DInput,
+      ...rest,
     } = this.props;
     if (primitiveType === "sampler2D") {
-      return renderSampler2DInput(this.props);
+      return renderSampler2DInput({ ...rest, value });
     }
     else {
       const primitive = primitiveTypes[primitiveType];
@@ -57,7 +58,7 @@ class UniformComponentInput extends React.Component {
         props.checked = value || primitive.checked;
       else
         props.value = value || primitive.value;
-      props = { ...this.props, ...props };
+      props = { ...rest, ...props };
       if (props.type === "number")
         return <NumberInput {...props} />;
       else
